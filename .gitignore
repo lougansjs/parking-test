@@ -1,0 +1,4 @@
+coverage/
+.ruby-lsp/
+.DS_Store
+.env
