@@ -6,9 +6,9 @@ module Services
 
     def call(id:)
       record = @repository.find_by_id(id)
-      raise StandardError, "Parking record not found" unless record
+      raise Parking::Errors::NotFoundError, "Parking record not found" unless record
 
-      raise StandardError, "Parking record already paid" if record.paid
+      raise Parking::Errors::BusinessError, "Parking record already paid" if record.paid
 
       record.paid = true
       record.payment_time = Time.now.utc

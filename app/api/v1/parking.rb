@@ -13,8 +13,6 @@ module Parking
             service = Services::CheckInVehicle.new
             record = service.call(plate: params[:plate])
             { id: record.id.to_s, plate: record.plate, entry_time: record.entry_time }
-          rescue StandardError => e
-            error!({ error: e.message }, 422)
           end
 
           route_param :id do
@@ -23,8 +21,6 @@ module Parking
               service = Services::RegisterPayment.new
               service.call(id: params[:id])
               status 204
-            rescue StandardError => e
-              error!({ error: e.message }, 422)
             end
 
             desc 'Check-out a vehicle'
@@ -32,8 +28,6 @@ module Parking
               service = Services::CheckOutVehicle.new
               service.call(id: params[:id])
               status 204
-            rescue StandardError => e
-              error!({ error: e.message }, 422)
             end
           end
 
@@ -52,8 +46,6 @@ module Parking
                 left: !record.exit_time.nil?
               }
             end
-          rescue ArgumentError => e
-            error!({ error: e.message }, 400)
           end
         end
       end

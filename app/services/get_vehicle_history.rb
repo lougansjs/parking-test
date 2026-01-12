@@ -6,7 +6,11 @@ module Services
 
     def call(plate:)
       plate_vo = Domain::ValueObjects::Plate.new(plate)
-      @repository.find_history_by_plate(plate_vo.to_s)
+      history = @repository.find_history_by_plate(plate_vo.to_s)
+
+      raise Parking::Errors::NotFoundError, "Parking record not found" if history.empty?
+
+      history
     end
   end
 end
