@@ -4,7 +4,6 @@ require 'rspec'
 require 'rack/test'
 require 'mongoid'
 require 'database_cleaner-mongoid'
-require 'factory_bot'
 require 'simplecov'
 
 SimpleCov.start
@@ -17,7 +16,6 @@ Dir[File.join(__dir__, 'factories', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
-  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :deletion
